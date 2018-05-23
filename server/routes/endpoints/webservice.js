@@ -14,7 +14,9 @@ router.get('*', function(req,res){
         res.send('Contacted by Jenny - recruiter');
         break;
       case 'Puzzle':
-        res.send(" ABCD\nA=>>>\nB<=<<\nC<>=<\nD<>>=")
+        console.log(req.query.d.split('-')[1]);
+        //res.send(" ABCD\nA=>>>\nB<=<<\nC<>=<\nD<>>=")
+        res.send('ok')
         break;
       case 'Degree':
         res.send('Rutgers University - BS, Computer Science, 2016');
