@@ -1,9 +1,10 @@
 var express = require('express');
 var router = new express.Router();
+var webservice = require('../../models/webservice');
 
-router.get('*', function(req,res){
+router.get('*', function(req,res){  //listen for any GET request
 
-    switch (req.query.q){
+    switch (req.query.q){ //seems to be q and d, q is the question topic, d is the description. Need to cycle through all q's manually to respond appropriately. 
       case 'Ping':
         res.send('OK');
         break;
@@ -14,9 +15,14 @@ router.get('*', function(req,res){
         res.send('Contacted by Jenny - recruiter');
         break;
       case 'Puzzle':
-        console.log(req.query.d.split('-')[1]);
-        //res.send(" ABCD\nA=>>>\nB<=<<\nC<>=<\nD<>>=")
-        res.send('ok')
+        webservice.solvePuzzle(req.query.d, function(err, result){ // calls webservice found in ../models/webservice.js 
+          if(err){
+            res.send(req.query.q + ': error solving puzzle');
+          }
+          else{
+            res.send(result);
+          }
+        })
         break;
       case 'Degree':
         res.send('Rutgers University - BS, Computer Science, 2016');
@@ -34,7 +40,7 @@ router.get('*', function(req,res){
         res.send('Siddharth Murali');
         break;
       case 'Position':
-        res.send('Software Engineer - Full Stack');
+        res.send('Software Engineer - Full Stack'); 
         break;
       case 'Resume':
         res.send('https://drive.google.com/file/d/1bkOuklUVtxu16UI_yFwPqEgwTIEeUftA/view?usp=sharing');
@@ -47,12 +53,6 @@ router.get('*', function(req,res){
         res.send(req.query.q + ': no response');
         break;
     }
-    
-        
-    console.log(req.query);
-    //console.log(req.query.q);
-
-    //res.send('OK');
 });
 
 
