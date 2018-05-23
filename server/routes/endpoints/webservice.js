@@ -2,6 +2,8 @@ var express = require('express');
 var router = new express.Router();
 var webservice = require('../../models/webservice');
 
+//web service hosted on aws ec2 instance.
+
 router.get('*', function(req,res){  //listen for any GET request
 
     switch (req.query.q){ //seems to be q and d, q is the question topic, d is the description. Need to cycle through all q's manually to respond appropriately. 
